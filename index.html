@@ -1,1 +1,1052 @@
-<h1>Hola me llamo Gabriel</h1>
+<!DOCTYPE html>
+<html lang="es" class="scroll-smooth dark">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CyberZone | Gaming Lounge & Specialty Cafe</title>
+
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;600;700;900&family=Rajdhani:wght@500;600;700&family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    
+    <!-- Font Awesome Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            darkMode: 'class',
+            theme: {
+                extend: {
+                    colors: {
+                        cyber: {
+                            black: '#070913',
+                            card: 'rgba(15, 23, 42, 0.75)',
+                            cyan: '#00f0ff',
+                            magenta: '#ff007f',
+                            purple: '#7000ff',
+                            neonGreen: '#39ff14',
+                            yellow: '#ffe600'
+                        }
+                    },
+                    fontFamily: {
+                        orbitron: ['Orbitron', 'sans-serif'],
+                        rajdhani: ['Rajdhani', 'sans-serif'],
+                        sans: ['Inter', 'sans-serif'],
+                    },
+                    boxShadow: {
+                        'neon-cyan': '0 0 15px rgba(0, 240, 255, 0.5), 0 0 30px rgba(0, 240, 255, 0.2)',
+                        'neon-magenta': '0 0 15px rgba(255, 0, 127, 0.5), 0 0 30px rgba(255, 0, 127, 0.2)',
+                        'neon-purple': '0 0 15px rgba(112, 0, 255, 0.5), 0 0 30px rgba(112, 0, 255, 0.2)',
+                    }
+                }
+            }
+        }
+    </script>
+
+    <style>
+        /* CSS Personalizado para efectos Cyberpunk y Glassmorphism */
+        body {
+            background-color: #070913;
+            color: #f1f5f9;
+            background-image: 
+                radial-gradient(circle at 15% 15%, rgba(112, 0, 255, 0.15) 0%, transparent 40%),
+                radial-gradient(circle at 85% 85%, rgba(0, 240, 255, 0.12) 0%, transparent 40%),
+                radial-gradient(circle at 50% 50%, rgba(255, 0, 127, 0.08) 0%, transparent 60%);
+            background-attachment: fixed;
+        }
+
+        .glass-panel {
+            background: rgba(15, 23, 42, 0.65);
+            backdrop-filter: blur(12px);
+            -webkit-backdrop-filter: blur(12px);
+            border: 1px solid rgba(255, 255, 255, 0.08);
+        }
+
+        .glass-panel-glow {
+            background: rgba(15, 23, 42, 0.75);
+            backdrop-filter: blur(16px);
+            border: 1px solid rgba(0, 240, 255, 0.2);
+            box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.37);
+        }
+
+        .text-glow-cyan {
+            text-shadow: 0 0 10px rgba(0, 240, 255, 0.7), 0 0 20px rgba(0, 240, 255, 0.4);
+        }
+
+        .text-glow-magenta {
+            text-shadow: 0 0 10px rgba(255, 0, 127, 0.7), 0 0 20px rgba(255, 0, 127, 0.4);
+        }
+
+        .border-glow-cyan {
+            border-color: #00f0ff;
+            box-shadow: 0 0 15px rgba(0, 240, 255, 0.4);
+        }
+
+        .border-glow-magenta {
+            border-color: #ff007f;
+            box-shadow: 0 0 15px rgba(255, 0, 127, 0.4);
+        }
+
+        /* Scanline effect */
+        .scanline-bg {
+            position: relative;
+            overflow: hidden;
+        }
+        .scanline-bg::before {
+            content: " ";
+            display: block;
+            position: absolute;
+            top: 0; left: 0; bottom: 0; right: 0;
+            background: linear-gradient(rgba(18, 16, 16, 0) 50%, rgba(0, 0, 0, 0.25) 50%);
+            background-size: 100% 4px;
+            z-index: 2;
+            pointer-events: none;
+            opacity: 0.6;
+        }
+
+        /* Custom Scrollbar */
+        ::-webkit-scrollbar {
+            width: 8px;
+        }
+        ::-webkit-scrollbar-track {
+            background: #070913;
+        }
+        ::-webkit-scrollbar-thumb {
+            background: #1e293b;
+            border-radius: 4px;
+            border: 1px solid #00f0ff33;
+        }
+        ::-webkit-scrollbar-thumb:hover {
+            background: #00f0ff;
+        }
+
+        /* Pulse animation for live indicators */
+        @keyframes pulse-fast {
+            0%, 100% { opacity: 1; transform: scale(1); }
+            50% { opacity: 0.4; transform: scale(0.95); }
+        }
+        .animate-pulse-fast {
+            animation: pulse-fast 1.5s cubic-bezier(0.4, 0, 0.6, 1) infinite;
+        }
+
+        .cyber-tile-selected {
+            background: rgba(0, 240, 255, 0.15) !important;
+            border-color: #00f0ff !important;
+            box-shadow: 0 0 15px rgba(0, 240, 255, 0.4) !important;
+        }
+
+        .cyber-tile-occupied {
+            background: rgba(239, 68, 68, 0.15) !important;
+            border-color: #ef4444 !important;
+            cursor: not-allowed;
+            opacity: 0.6;
+        }
+    </style>
+</head>
+<body class="font-sans antialiased text-slate-200 selection:bg-cyber-cyan selection:text-black">
+
+    <header class="fixed top-0 left-0 w-full z-50 transition-all duration-300 glass-panel border-b border-slate-800/80" id="navbar">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex items-center justify-between h-20">
+                
+                <!-- Logo -->
+                <a href="#" class="flex items-center gap-3 group">
+                    <div class="w-10 h-10 rounded-lg bg-gradient-to-br from-cyber-cyan via-cyber-purple to-cyber-magenta p-0.5 shadow-neon-cyan group-hover:shadow-neon-magenta transition-all duration-300">
+                        <div class="w-full h-full bg-slate-950 rounded-[7px] flex items-center justify-center">
+                            <i class="fa-solid fa-gamepad text-cyber-cyan text-xl group-hover:text-cyber-magenta transition-colors"></i>
+                        </div>
+                    </div>
+                    <div class="flex flex-col">
+                        <span class="font-orbitron font-black text-xl tracking-wider text-white flex items-center gap-1">
+                            CYBER<span class="text-cyber-cyan text-glow-cyan">ZONE</span>
+                        </span>
+                        <span class="font-rajdhani text-xs tracking-widest text-slate-400 font-semibold uppercase">Gaming & Specialty Cafe</span>
+                    </div>
+                </a>
+
+                <!-- Desktop Navigation Links -->
+                <nav class="hidden md:flex items-center space-x-8 font-rajdhani text-lg font-semibold tracking-wide">
+                    <a href="#inicio" class="text-slate-200 hover:text-cyber-cyan transition-colors flex items-center gap-2">
+                        <i class="fa-solid fa-house text-xs text-cyber-cyan"></i> Inicio
+                    </a>
+                    <a href="#specs" class="text-slate-400 hover:text-cyber-cyan transition-colors flex items-center gap-2">
+                        <i class="fa-solid fa-desktop text-xs text-cyber-cyan"></i> Equipos & Tarifas
+                    </a>
+                    <a href="#menu" class="text-slate-400 hover:text-cyber-magenta transition-colors flex items-center gap-2">
+                        <i class="fa-solid fa-mug-hot text-xs text-cyber-magenta"></i> CyberCafe & Menú
+                    </a>
+                    <a href="#torneos" class="text-slate-400 hover:text-cyber-yellow transition-colors flex items-center gap-2">
+                        <i class="fa-solid fa-trophy text-xs text-cyber-yellow"></i> Torneos
+                    </a>
+                    <a href="#contacto" class="text-slate-400 hover:text-cyber-cyan transition-colors flex items-center gap-2">
+                        <i class="fa-solid fa-location-dot text-xs text-cyber-cyan"></i> Ubicación
+                    </a>
+                </nav>
+
+                <!-- CTA & Mobile Button -->
+                <div class="flex items-center gap-4">
+                    <a href="#reserva" class="hidden sm:inline-flex items-center gap-2 px-5 py-2.5 rounded-lg font-orbitron text-xs font-bold uppercase tracking-wider text-black bg-gradient-to-r from-cyber-cyan to-blue-500 hover:from-cyan-300 hover:to-blue-400 transition-all duration-300 shadow-neon-cyan hover:scale-105 active:scale-95">
+                        <i class="fa-solid fa-calendar-check"></i> Reservar PC
+                    </a>
+                    
+                    <button id="mobile-menu-btn" class="md:hidden p-2 rounded-lg text-slate-300 hover:text-white hover:bg-slate-800/60 focus:outline-none">
+                        <i class="fa-solid fa-bars text-2xl"></i>
+                    </button>
+                </div>
+            </div>
+        </div>
+
+        <!-- Mobile Menu Dropdown -->
+        <div id="mobile-menu" class="hidden md:hidden glass-panel border-b border-slate-800 px-4 pt-2 pb-6 space-y-3 font-rajdhani text-lg">
+            <a href="#inicio" class="block py-2 text-slate-200 hover:text-cyber-cyan transition-colors"><i class="fa-solid fa-house w-6 text-cyber-cyan"></i> Inicio</a>
+            <a href="#specs" class="block py-2 text-slate-400 hover:text-cyber-cyan transition-colors"><i class="fa-solid fa-desktop w-6 text-cyber-cyan"></i> Equipos & Tarifas</a>
+            <a href="#menu" class="block py-2 text-slate-400 hover:text-cyber-magenta transition-colors"><i class="fa-solid fa-mug-hot w-6 text-cyber-magenta"></i> CyberCafe & Menú</a>
+            <a href="#torneos" class="block py-2 text-slate-400 hover:text-cyber-yellow transition-colors"><i class="fa-solid fa-trophy w-6 text-cyber-yellow"></i> Torneos</a>
+            <a href="#contacto" class="block py-2 text-slate-400 hover:text-cyber-cyan transition-colors"><i class="fa-solid fa-location-dot w-6 text-cyber-cyan"></i> Ubicación</a>
+            <a href="#reserva" class="inline-block w-full text-center py-3 mt-2 rounded-lg font-orbitron text-xs font-bold uppercase text-black bg-cyber-cyan shadow-neon-cyan">
+                Reservar Puesto
+            </a>
+        </div>
+    </header>
+
+    <section id="inicio" class="relative min-h-screen pt-28 pb-16 flex items-center justify-center overflow-hidden scanline-bg">
+        <!-- Background Ambient Lights -->
+        <div class="absolute top-1/4 left-10 w-96 h-96 bg-cyber-purple/20 rounded-full blur-3xl pointer-events-none"></div>
+        <div class="absolute bottom-10 right-10 w-96 h-96 bg-cyber-cyan/15 rounded-full blur-3xl pointer-events-none"></div>
+
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10 w-full">
+            <div class="grid lg:grid-cols-12 gap-12 items-center">
+                
+                <!-- Hero Text -->
+                <div class="lg:col-span-7 space-y-6 text-center lg:text-left">
+                    <div class="inline-flex items-center gap-2 px-3 py-1.5 rounded-full glass-panel border border-cyber-cyan/30 text-cyber-cyan text-xs font-orbitron tracking-widest uppercase">
+                        <span class="w-2 h-2 rounded-full bg-cyber-neonGreen animate-pulse-fast"></span>
+                        Abierto Hoy • 24/7 Gaming Lounge
+                    </div>
+
+                    <h1 class="font-orbitron font-black text-4xl sm:text-6xl xl:text-7xl leading-tight tracking-tight text-white">
+                        TU SANTUARIO <br>
+                        <span class="bg-gradient-to-r from-cyber-cyan via-cyber-purple to-cyber-magenta bg-clip-text text-transparent text-glow-cyan">
+                            GAMER & COFFEE
+                        </span>
+                    </h1>
+
+                    <p class="text-slate-300 font-sans text-base sm:text-lg max-w-2xl mx-auto lg:mx-0 font-light leading-relaxed">
+                        Experimenta el máximo rendimiento con nuestra flota de PCs equipadas con RTX 4090 y monitores de 240Hz, acompañadas del mejor café de especialidad, bebidas energéticas y gastronomía gamer en un ambiente inmersivo neón.
+                    </p>
+
+                    <!-- Features Highlights badges -->
+                    <div class="flex flex-wrap items-center justify-center lg:justify-start gap-4 pt-2 text-sm font-rajdhani font-semibold text-slate-300">
+                        <span class="flex items-center gap-1.5 glass-panel px-3 py-1.5 rounded-lg border border-slate-700">
+                            <i class="fa-solid fa-bolt text-cyber-yellow"></i> Fibra Simétrica 1Gbps
+                        </span>
+                        <span class="flex items-center gap-1.5 glass-panel px-3 py-1.5 rounded-lg border border-slate-700">
+                            <i class="fa-solid fa-headset text-cyber-cyan"></i> Periféricos Professional Grade
+                        </span>
+                        <span class="flex items-center gap-1.5 glass-panel px-3 py-1.5 rounded-lg border border-slate-700">
+                            <i class="fa-solid fa-couch text-cyber-magenta"></i> Sala Streamer Privada
+                        </span>
+                    </div>
+
+                    <!-- CTA Buttons -->
+                    <div class="flex flex-col sm:flex-row items-center justify-center lg:justify-start gap-4 pt-4">
+                        <a href="#reserva" class="w-full sm:w-auto px-8 py-4 rounded-xl font-orbitron font-bold text-sm tracking-wider uppercase text-black bg-gradient-to-r from-cyber-cyan to-blue-500 hover:from-cyan-300 hover:to-blue-400 transition-all duration-300 shadow-neon-cyan hover:scale-105 active:scale-95 flex items-center justify-center gap-3">
+                            <i class="fa-solid fa-gamepad text-base"></i> Reservar PC / Puesto
+                        </a>
+                        <a href="#menu" class="w-full sm:w-auto px-8 py-4 rounded-xl font-orbitron font-bold text-sm tracking-wider uppercase text-slate-200 glass-panel border border-cyber-magenta/50 hover:border-cyber-magenta hover:text-white hover:bg-cyber-magenta/20 transition-all duration-300 shadow-neon-magenta flex items-center justify-center gap-3">
+                            <i class="fa-solid fa-mug-hot text-base text-cyber-magenta"></i> Ver Menú & Cafe
+                        </a>
+                    </div>
+                </div>
+
+                <!-- Hero Interactive Cards Graphic -->
+                <div class="lg:col-span-5 relative">
+                    <div class="relative mx-auto max-w-md lg:max-w-none">
+                        <!-- Main Card -->
+                        <div class="glass-panel-glow rounded-2xl p-6 relative z-20 border-cyber-cyan/40">
+                            <div class="flex items-center justify-between border-b border-slate-800 pb-4 mb-4">
+                                <div class="flex items-center gap-3">
+                                    <div class="w-3 h-3 rounded-full bg-cyber-neonGreen animate-pulse-fast"></div>
+                                    <span class="font-orbitron font-bold text-sm tracking-wider uppercase text-white">ESTADO DEL SALÓN</span>
+                                </div>
+                                <span class="text-xs font-rajdhani text-cyber-cyan font-bold bg-cyber-cyan/10 px-2.5 py-1 rounded-md border border-cyber-cyan/30">ZONA VIP ONLINE</span>
+                            </div>
+
+                            <div class="space-y-4">
+                                <div class="flex justify-between items-center bg-slate-900/80 p-3 rounded-xl border border-slate-800">
+                                    <div class="flex items-center gap-3">
+                                        <i class="fa-solid fa-desktop text-cyber-cyan text-xl"></i>
+                                        <div>
+                                            <p class="font-orbitron text-xs font-bold text-white">PUESTOS DISPONIBLES</p>
+                                            <p class="text-xs text-slate-400">32 PCs Pro & VIP</p>
+                                        </div>
+                                    </div>
+                                    <span class="font-orbitron text-lg font-black text-cyber-neonGreen">24/32</span>
+                                </div>
+
+                                <div class="flex justify-between items-center bg-slate-900/80 p-3 rounded-xl border border-slate-800">
+                                    <div class="flex items-center gap-3">
+                                        <i class="fa-solid fa-gamepad text-cyber-magenta text-xl"></i>
+                                        <div>
+                                            <p class="font-orbitron text-xs font-bold text-white">CONSOLAS & VR</p>
+                                            <p class="text-xs text-slate-400">PS5, Xbox, Meta Quest 3</p>
+                                        </div>
+                                    </div>
+                                    <span class="font-orbitron text-lg font-black text-cyber-cyan">6/8</span>
+                                </div>
+
+                                <div class="flex justify-between items-center bg-slate-900/80 p-3 rounded-xl border border-slate-800">
+                                    <div class="flex items-center gap-3">
+                                        <i class="fa-solid fa-mug-hot text-cyber-yellow text-xl"></i>
+                                        <div>
+                                            <p class="font-orbitron text-xs font-bold text-white">ESPECIALIDAD DEL DÍA</p>
+                                            <p class="text-xs text-slate-400">Cyber Latte + Club Sandwich Gamer</p>
+                                        </div>
+                                    </div>
+                                    <span class="font-orbitron text-xs font-bold text-cyber-yellow bg-cyber-yellow/10 px-2 py-1 rounded border border-cyber-yellow/30">OFERTA 15%</span>
+                                </div>
+                            </div>
+
+                            <!-- Live Event Banner -->
+                            <div class="mt-5 p-3 rounded-xl bg-gradient-to-r from-cyber-purple/40 to-cyber-magenta/40 border border-cyber-magenta/30 flex items-center justify-between">
+                                <div class="flex items-center gap-2">
+                                    <i class="fa-solid fa-trophy text-cyber-yellow text-lg"></i>
+                                    <div>
+                                        <p class="font-orbitron text-xs font-bold text-white">PRÓXIMO TORNEO</p>
+                                        <p class="text-[11px] text-slate-300">Valorant 5v5 Arena - Sábado 20:00h</p>
+                                    </div>
+                                </div>
+                                <a href="#torneos" class="text-xs font-orbitron font-bold text-cyber-cyan hover:underline">VER</a>
+                            </div>
+                        </div>
+
+                        <!-- Decorative floating element -->
+                        <div class="absolute -bottom-6 -right-6 glass-panel p-4 rounded-xl border border-cyber-magenta/40 hidden sm:block z-30 shadow-neon-magenta">
+                            <div class="flex items-center gap-3">
+                                <div class="w-10 h-10 rounded-full bg-cyber-magenta/20 flex items-center justify-center text-cyber-magenta font-bold">
+                                    <i class="fa-solid fa-wifi"></i>
+                                </div>
+                                <div>
+                                    <p class="font-orbitron text-xs font-bold text-white">PING PROMEDIO</p>
+                                    <p class="font-rajdhani font-bold text-sm text-cyber-neonGreen">3ms (Valorant / CS2)</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </section>
+
+    <section id="specs" class="py-20 relative">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            
+            <!-- Section Title -->
+            <div class="text-center max-w-3xl mx-auto mb-16">
+                <h2 class="font-orbitron font-black text-3xl sm:text-5xl text-white tracking-wider mb-4">
+                    HARDWARE DE <span class="text-cyber-cyan text-glow-cyan">ALTA GAMA</span>
+                </h2>
+                <div class="h-1 w-24 bg-gradient-to-r from-cyber-cyan to-cyber-magenta mx-auto mb-4 rounded-full"></div>
+                <p class="font-sans text-slate-400 text-base">
+                    Nuestros puestos están equipados con los componentes más potentes del mercado para garantizar fotogramas ultra fluidos y cero retraso.
+                </p>
+            </div>
+
+            <!-- Hardware Spec Cards -->
+            <div class="grid md:grid-cols-3 gap-8 mb-20">
+                
+                <!-- Zone 1: Standard Gaming Zone -->
+                <div class="glass-panel rounded-2xl p-6 border border-slate-800 hover:border-cyber-cyan/50 transition-all duration-300 hover:-translate-y-2 group">
+                    <div class="flex justify-between items-start mb-6">
+                        <div class="w-12 h-12 rounded-xl bg-cyber-cyan/10 border border-cyber-cyan/30 flex items-center justify-center text-cyber-cyan group-hover:scale-110 transition-transform">
+                            <i class="fa-solid fa-desktop text-2xl"></i>
+                        </div>
+                        <span class="font-orbitron text-xs font-bold bg-slate-800 text-slate-300 px-3 py-1 rounded-full">3.00 € / Horas</span>
+                    </div>
+                    <h3 class="font-orbitron font-bold text-xl text-white mb-2">PUESTO ESTÁNDAR</h3>
+                    <p class="text-xs text-slate-400 mb-6">Ideal para partidas casuales, eSports y navegación de alta velocidad.</p>
+
+                    <ul class="space-y-3 font-rajdhani font-semibold text-sm text-slate-300 border-t border-slate-800 pt-4">
+                        <li class="flex items-center gap-2"><i class="fa-solid fa-microchip text-cyber-cyan w-5"></i> Intel i7 13700KF</li>
+                        <li class="flex items-center gap-2"><i class="fa-solid fa-memory text-cyber-cyan w-5"></i> RTX 4070 Ti 12GB</li>
+                        <li class="flex items-center gap-2"><i class="fa-solid fa-hard-drive text-cyber-cyan w-5"></i> 32GB RAM DDR5 6000MHz</li>
+                        <li class="flex items-center gap-2"><i class="fa-solid fa-tv text-cyber-cyan w-5"></i> Monitor AOC 27" 240Hz 0.5ms</li>
+                        <li class="flex items-center gap-2"><i class="fa-solid fa-chair text-cyber-cyan w-5"></i> Silla Corsair T3 Rush</li>
+                    </ul>
+                </div>
+
+                <!-- Zone 2: VIP Ultimate Zone -->
+                <div class="glass-panel-glow rounded-2xl p-6 border-cyber-magenta/50 relative hover:-translate-y-2 transition-all duration-300 group">
+                    <div class="absolute -top-3 right-6 bg-gradient-to-r from-cyber-magenta to-cyber-purple text-white font-orbitron text-[10px] font-bold uppercase tracking-widest px-3 py-1 rounded-full shadow-neon-magenta">
+                        MÁS POPULAR
+                    </div>
+                    <div class="flex justify-between items-start mb-6">
+                        <div class="w-12 h-12 rounded-xl bg-cyber-magenta/10 border border-cyber-magenta/30 flex items-center justify-center text-cyber-magenta group-hover:scale-110 transition-transform">
+                            <i class="fa-solid fa-crown text-2xl"></i>
+                        </div>
+                        <span class="font-orbitron text-xs font-bold bg-cyber-magenta/20 text-cyber-magenta border border-cyber-magenta/40 px-3 py-1 rounded-full">5.00 € / Hora</span>
+                    </div>
+                    <h3 class="font-orbitron font-bold text-xl text-white mb-2">ZONA VIP ULTIMATE</h3>
+                    <p class="text-xs text-slate-400 mb-6">Máximo rendimiento en 4K y eSports competitivos nivel profesional.</p>
+
+                    <ul class="space-y-3 font-rajdhani font-semibold text-sm text-slate-200 border-t border-slate-800 pt-4">
+                        <li class="flex items-center gap-2"><i class="fa-solid fa-microchip text-cyber-magenta w-5"></i> AMD Ryzen 9 7950X3D</li>
+                        <li class="flex items-center gap-2"><i class="fa-solid fa-memory text-cyber-magenta w-5"></i> RTX 4090 24GB OC</li>
+                        <li class="flex items-center gap-2"><i class="fa-solid fa-hard-drive text-cyber-magenta w-5"></i> 64GB RAM DDR5 6400MHz</li>
+                        <li class="flex items-center gap-2"><i class="fa-solid fa-tv text-cyber-magenta w-5"></i> Monitor ASUS ROG OLED 360Hz</li>
+                        <li class="flex items-center gap-2"><i class="fa-solid fa-headphones text-cyber-magenta w-5"></i> Periféricos Logitech G-PRO X</li>
+                    </ul>
+                </div>
+
+                <!-- Zone 3: Consoles & VR -->
+                <div class="glass-panel rounded-2xl p-6 border border-slate-800 hover:border-cyber-purple/50 transition-all duration-300 hover:-translate-y-2 group">
+                    <div class="flex justify-between items-start mb-6">
+                        <div class="w-12 h-12 rounded-xl bg-cyber-purple/10 border border-cyber-purple/30 flex items-center justify-center text-cyber-purple group-hover:scale-110 transition-transform">
+                            <i class="fa-solid fa-gamepad text-2xl"></i>
+                        </div>
+                        <span class="font-orbitron text-xs font-bold bg-slate-800 text-slate-300 px-3 py-1 rounded-full">4.00 € / Hora</span>
+                    </div>
+                    <h3 class="font-orbitron font-bold text-xl text-white mb-2">CONSOLAS & REALIDAD VIRTUAL</h3>
+                    <p class="text-xs text-slate-400 mb-6">Sofás confortables para jugar en grupo, luchar o volar en VR.</p>
+
+                    <ul class="space-y-3 font-rajdhani font-semibold text-sm text-slate-300 border-t border-slate-800 pt-4">
+                        <li class="flex items-center gap-2"><i class="fa-brands fa-playstation text-cyber-purple w-5"></i> PlayStation 5 Pro & Xbox Series X</li>
+                        <li class="flex items-center gap-2"><i class="fa-solid fa-vr-cardboard text-cyber-purple w-5"></i> Meta Quest 3 512GB</li>
+                        <li class="flex items-center gap-2"><i class="fa-solid fa-tv text-cyber-purple w-5"></i> TV OLED LG C3 65" 120Hz</li>
+                        <li class="flex items-center gap-2"><i class="fa-solid fa-couch text-cyber-purple w-5"></i> Sillones Gamer Ergonómicos</li>
+                        <li class="flex items-center gap-2"><i class="fa-solid fa-users text-cyber-purple w-5"></i> Hasta 4 Mandos por Consola</li>
+                    </ul>
+                </div>
+
+            </div>
+
+            <!-- Pricing & Membership Passes -->
+            <div class="glass-panel rounded-3xl p-8 border border-slate-800">
+                <h3 class="font-orbitron font-bold text-2xl text-center text-white mb-8">
+                    PLANES, PASSES Y <span class="text-cyber-yellow">MEMBRESÍAS</span>
+                </h3>
+
+                <div class="grid md:grid-cols-3 gap-6">
+                    <div class="bg-slate-900/90 rounded-xl p-5 border border-slate-800 text-center hover:border-cyber-cyan/40 transition-colors">
+                        <p class="font-orbitron font-bold text-slate-300 text-sm uppercase mb-1">BONO 5 HORMAS</p>
+                        <p class="font-orbitron font-black text-3xl text-cyber-cyan mb-2">12.50 €</p>
+                        <p class="text-xs text-slate-400 mb-4">Ahorra un 15% • Válido por 30 días en Zona Estándar o VIP</p>
+                        <a href="#reserva" class="inline-block w-full py-2 rounded-lg font-orbitron text-xs font-bold border border-cyber-cyan/40 text-cyber-cyan hover:bg-cyber-cyan hover:text-black transition-colors">Comprar Bono</a>
+                    </div>
+
+                    <div class="bg-slate-900/90 rounded-xl p-5 border border-cyber-magenta/40 text-center relative overflow-hidden">
+                        <div class="absolute -right-8 top-3 bg-cyber-magenta text-white font-orbitron text-[9px] font-bold uppercase py-0.5 px-8 rotate-45">NOCHE</div>
+                        <p class="font-orbitron font-bold text-slate-300 text-sm uppercase mb-1">NIGHT PASS (23:00 - 07:00)</p>
+                        <p class="font-orbitron font-black text-3xl text-cyber-magenta mb-2">18.00 €</p>
+                        <p class="text-xs text-slate-400 mb-4">8 Horas seguidas de vicio nocturno + 1 Energy Drink Gratis</p>
+                        <a href="#reserva" class="inline-block w-full py-2 rounded-lg font-orbitron text-xs font-bold bg-cyber-magenta text-white hover:bg-magenta-600 transition-colors shadow-neon-magenta">Reservar Noche</a>
+                    </div>
+
+                    <div class="bg-slate-900/90 rounded-xl p-5 border border-slate-800 text-center hover:border-cyber-yellow/40 transition-colors">
+                        <p class="font-orbitron font-bold text-slate-300 text-sm uppercase mb-1">MEMBRESÍA VIP MONTHLY</p>
+                        <p class="font-orbitron font-black text-3xl text-cyber-yellow mb-2">69.00 €/mes</p>
+                        <p class="text-xs text-slate-400 mb-4">30h mensuales + 20% descuento en CyberCafé + Taquilla propia</p>
+                        <a href="#contacto" class="inline-block w-full py-2 rounded-lg font-orbitron text-xs font-bold border border-cyber-yellow/40 text-cyber-yellow hover:bg-cyber-yellow hover:text-black transition-colors">Unirme al Club</a>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+    </section>
+
+    <section id="menu" class="py-20 relative scanline-bg bg-slate-950/60">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
+            
+            <div class="text-center max-w-3xl mx-auto mb-12">
+                <div class="inline-flex items-center gap-2 px-3 py-1 rounded-full glass-panel text-cyber-magenta text-xs font-orbitron uppercase mb-3 border border-cyber-magenta/30">
+                    <i class="fa-solid fa-utensils"></i> Fuel For Gamers
+                </div>
+                <h2 class="font-orbitron font-black text-3xl sm:text-5xl text-white tracking-wider mb-4">
+                    CYBERCAFÉ & <span class="text-cyber-magenta text-glow-magenta">GASTRONOMÍA</span>
+                </h2>
+                <p class="font-sans text-slate-400 text-base">
+                    Recarga energías sin levantarte del juego. Servicio directamente a tu puesto de PC o disfruta en nuestro lounge.
+                </p>
+            </div>
+
+            <!-- Category Filters -->
+            <div class="flex flex-wrap justify-center gap-3 mb-12" id="menu-filters">
+                <button data-filter="all" class="menu-filter-btn active px-5 py-2.5 rounded-xl font-orbitron text-xs font-bold uppercase transition-all glass-panel border border-cyber-magenta text-white bg-cyber-magenta/20 shadow-neon-magenta">
+                    Todos
+                </button>
+                <button data-filter="coffee" class="menu-filter-btn px-5 py-2.5 rounded-xl font-orbitron text-xs font-bold uppercase transition-all glass-panel border border-slate-800 text-slate-400 hover:text-white hover:border-cyber-cyan">
+                    Café & Bebidas
+                </button>
+                <button data-filter="food" class="menu-filter-btn px-5 py-2.5 rounded-xl font-orbitron text-xs font-bold uppercase transition-all glass-panel border border-slate-800 text-slate-400 hover:text-white hover:border-cyber-cyan">
+                    Burgers & Snacks
+                </button>
+                <button data-filter="energy" class="menu-filter-btn px-5 py-2.5 rounded-xl font-orbitron text-xs font-bold uppercase transition-all glass-panel border border-slate-800 text-slate-400 hover:text-white hover:border-cyber-cyan">
+                    Energy Drinks & Potion
+                </button>
+            </div>
+
+            <!-- Menu Grid -->
+            <div class="grid sm:grid-cols-2 lg:grid-cols-4 gap-6" id="menu-grid">
+                
+                <!-- Menu Item 1 -->
+                <div class="menu-item coffee glass-panel rounded-2xl overflow-hidden border border-slate-800 hover:border-cyber-magenta/40 transition-all duration-300 hover:-translate-y-1">
+                    <div class="h-48 overflow-hidden relative">
+                        <img src="https://images.unsplash.com/photo-1541167760496-1628856ab772?auto=format&fit=crop&w=600&q=80" alt="Cyber Espresso" class="w-full h-full object-cover transition-transform duration-500 hover:scale-110" onerror="this.src='https://placehold.co/600x400/0f172a/00f0ff?text=Cyber+Espresso'">
+                        <span class="absolute top-3 right-3 bg-black/80 backdrop-blur-md text-cyber-magenta font-orbitron text-xs font-bold px-2.5 py-1 rounded-md border border-cyber-magenta/30">3.50 €</span>
+                    </div>
+                    <div class="p-5">
+                        <div class="flex items-center gap-2 text-cyber-magenta text-xs font-rajdhani font-bold mb-1">
+                            <i class="fa-solid fa-mug-hot"></i> CAFÉ DE ESPECIALIDAD
+                        </div>
+                        <h4 class="font-orbitron font-bold text-lg text-white mb-2">Cyber Espresso Neon</h4>
+                        <p class="text-slate-400 text-xs line-clamp-2">Espresso doble de grano etíope, leche vaporizada y jarabe artesanal de vainilla violeta.</p>
+                    </div>
+                </div>
+
+                <!-- Menu Item 2 -->
+                <div class="menu-item food glass-panel rounded-2xl overflow-hidden border border-slate-800 hover:border-cyber-magenta/40 transition-all duration-300 hover:-translate-y-1">
+                    <div class="h-48 overflow-hidden relative">
+                        <img src="https://images.unsplash.com/photo-1568901346375-23c9450c58cd?auto=format&fit=crop&w=600&q=80" alt="RTX Burger" class="w-full h-full object-cover transition-transform duration-500 hover:scale-110" onerror="this.src='https://placehold.co/600x400/0f172a/00f0ff?text=RTX+Burger'">
+                        <span class="absolute top-3 right-3 bg-black/80 backdrop-blur-md text-cyber-cyan font-orbitron text-xs font-bold px-2.5 py-1 rounded-md border border-cyber-cyan/30">11.90 €</span>
+                    </div>
+                    <div class="p-5">
+                        <div class="flex items-center gap-2 text-cyber-cyan text-xs font-rajdhani font-bold mb-1">
+                            <i class="fa-solid fa-burger"></i> BURGER PRO
+                        </div>
+                        <h4 class="font-orbitron font-bold text-lg text-white mb-2">RTX 4090 Monster Burger</h4>
+                        <p class="text-slate-400 text-xs line-clamp-2">200g carne Black Angus, doble queso cheddar fundido, bacon crujiente y salsa secreta CyberZone.</p>
+                    </div>
+                </div>
+
+                <!-- Menu Item 3 -->
+                <div class="menu-item energy glass-panel rounded-2xl overflow-hidden border border-slate-800 hover:border-cyber-magenta/40 transition-all duration-300 hover:-translate-y-1">
+                    <div class="h-48 overflow-hidden relative">
+                        <img src="https://images.unsplash.com/photo-1622543925917-763c34d1a86e?auto=format&fit=crop&w=600&q=80" alt="Mana Elixir" class="w-full h-full object-cover transition-transform duration-500 hover:scale-110" onerror="this.src='https://placehold.co/600x400/0f172a/00f0ff?text=Mana+Elixir'">
+                        <span class="absolute top-3 right-3 bg-black/80 backdrop-blur-md text-cyber-neonGreen font-orbitron text-xs font-bold px-2.5 py-1 rounded-md border border-cyber-neonGreen/30">4.80 €</span>
+                    </div>
+                    <div class="p-5">
+                        <div class="flex items-center gap-2 text-cyber-neonGreen text-xs font-rajdhani font-bold mb-1">
+                            <i class="fa-solid fa-flask"></i> POTION DRINK
+                        </div>
+                        <h4 class="font-orbitron font-bold text-lg text-white mb-2">Mana Restoration Elixir</h4>
+                        <p class="text-slate-400 text-xs line-clamp-2">Bebida energizante de frutos azules, electólitos, taurina y destellos comestibles neón.</p>
+                    </div>
+                </div>
+
+                <!-- Menu Item 4 -->
+                <div class="menu-item food glass-panel rounded-2xl overflow-hidden border border-slate-800 hover:border-cyber-magenta/40 transition-all duration-300 hover:-translate-y-1">
+                    <div class="h-48 overflow-hidden relative">
+                        <img src="https://images.unsplash.com/photo-1513104890138-7c749659a591?auto=format&fit=crop&w=600&q=80" alt="Pizza eSports" class="w-full h-full object-cover transition-transform duration-500 hover:scale-110" onerror="this.src='https://placehold.co/600x400/0f172a/00f0ff?text=Cyber+Pizza'">
+                        <span class="absolute top-3 right-3 bg-black/80 backdrop-blur-md text-cyber-yellow font-orbitron text-xs font-bold px-2.5 py-1 rounded-md border border-cyber-yellow/30">9.50 €</span>
+                    </div>
+                    <div class="p-5">
+                        <div class="flex items-center gap-2 text-cyber-yellow text-xs font-rajdhani font-bold mb-1">
+                            <i class="fa-solid fa-pizza-slice"></i> SNACK & SHARE
+                        </div>
+                        <h4 class="font-orbitron font-bold text-lg text-white mb-2">Pizza Overclock Pepperoni</h4>
+                        <p class="text-slate-400 text-xs line-clamp-2">Masa artesanal, mozzarella hilada, doble pepperoni picante y toque de orégano silvestre.</p>
+                    </div>
+                </div>
+
+            </div>
+
+        </div>
+    </section>
+
+    <section id="torneos" class="py-20 relative">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            
+            <div class="text-center max-w-3xl mx-auto mb-16">
+                <h2 class="font-orbitron font-black text-3xl sm:text-5xl text-white tracking-wider mb-4">
+                    TORNEOS & <span class="text-cyber-yellow">COMPETICIONES</span>
+                </h2>
+                <div class="h-1 w-24 bg-gradient-to-r from-cyber-yellow to-cyber-magenta mx-auto mb-4 rounded-full"></div>
+                <p class="font-sans text-slate-400 text-base">
+                    Demuestra tu nivel, compite por premios en metálico y escala en el ranking oficial de CyberZone.
+                </p>
+            </div>
+
+            <!-- Tournament Cards Grid -->
+            <div class="grid md:grid-cols-2 gap-8">
+                
+                <!-- Tournament 1 -->
+                <div class="glass-panel rounded-2xl p-6 border border-slate-800 hover:border-cyber-yellow/60 transition-all duration-300 relative overflow-hidden">
+                    <div class="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4 mb-6 border-b border-slate-800 pb-4">
+                        <div>
+                            <span class="bg-cyber-yellow/10 text-cyber-yellow border border-cyber-yellow/30 font-orbitron text-[11px] font-bold px-3 py-1 rounded-full uppercase">VALORANT 5v5</span>
+                            <h3 class="font-orbitron font-bold text-2xl text-white mt-2">CyberZone Valorant Masters</h3>
+                        </div>
+                        <div class="text-right">
+                            <span class="text-xs text-slate-400 font-rajdhani block">PREMIO TOTAL</span>
+                            <span class="font-orbitron font-black text-2xl text-cyber-neonGreen">500 €</span>
+                        </div>
+                    </div>
+
+                    <div class="grid sm:grid-cols-3 gap-4 mb-6 font-rajdhani text-sm">
+                        <div class="bg-slate-900/80 p-3 rounded-xl border border-slate-800">
+                            <span class="text-slate-400 text-xs block">FECHA</span>
+                            <span class="font-bold text-white"><i class="fa-solid fa-calendar text-cyber-cyan"></i> Sábado, 24 Oct</span>
+                        </div>
+                        <div class="bg-slate-900/80 p-3 rounded-xl border border-slate-800">
+                            <span class="text-slate-400 text-xs block">HORA</span>
+                            <span class="font-bold text-white"><i class="fa-solid fa-clock text-cyber-cyan"></i> 17:00 HRS</span>
+                        </div>
+                        <div class="bg-slate-900/80 p-3 rounded-xl border border-slate-800">
+                            <span class="text-slate-400 text-xs block">INSCRIPCIÓN</span>
+                            <span class="font-bold text-white"><i class="fa-solid fa-ticket text-cyber-cyan"></i> 10€ / Equipo</span>
+                        </div>
+                    </div>
+
+                    <div class="flex items-center justify-between">
+                        <span class="text-xs font-rajdhani text-slate-400"><i class="fa-solid fa-user-group text-cyber-yellow"></i> 12/16 Equipos Inscritos</span>
+                        <button onclick="openTournamentModal('Valorant Masters')" class="px-5 py-2.5 rounded-lg font-orbitron text-xs font-bold uppercase text-black bg-cyber-yellow hover:bg-yellow-400 transition-colors">
+                            Inscribirse
+                        </button>
+                    </div>
+                </div>
+
+                <!-- Tournament 2 -->
+                <div class="glass-panel rounded-2xl p-6 border border-slate-800 hover:border-cyber-cyan/60 transition-all duration-300 relative overflow-hidden">
+                    <div class="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4 mb-6 border-b border-slate-800 pb-4">
+                        <div>
+                            <span class="bg-cyber-cyan/10 text-cyber-cyan border border-cyber-cyan/30 font-orbitron text-[11px] font-bold px-3 py-1 rounded-full uppercase">EA SPORTS FC 24</span>
+                            <h3 class="font-orbitron font-bold text-2xl text-white mt-2">1v1 FIFA Cup Season 4</h3>
+                        </div>
+                        <div class="text-right">
+                            <span class="text-xs text-slate-400 font-rajdhani block">PREMIO TOTAL</span>
+                            <span class="font-orbitron font-black text-2xl text-cyber-neonGreen">250 €</span>
+                        </div>
+                    </div>
+
+                    <div class="grid sm:grid-cols-3 gap-4 mb-6 font-rajdhani text-sm">
+                        <div class="bg-slate-900/80 p-3 rounded-xl border border-slate-800">
+                            <span class="text-slate-400 text-xs block">FECHA</span>
+                            <span class="font-bold text-white"><i class="fa-solid fa-calendar text-cyber-cyan"></i> Domingo, 1 Nov</span>
+                        </div>
+                        <div class="bg-slate-900/80 p-3 rounded-xl border border-slate-800">
+                            <span class="text-slate-400 text-xs block">HORA</span>
+                            <span class="font-bold text-white"><i class="fa-solid fa-clock text-cyber-cyan"></i> 16:00 HRS</span>
+                        </div>
+                        <div class="bg-slate-900/80 p-3 rounded-xl border border-slate-800">
+                            <span class="text-slate-400 text-xs block">INSCRIPCIÓN</span>
+                            <span class="font-bold text-white"><i class="fa-solid fa-ticket text-cyber-cyan"></i> 5€ / Jugador</span>
+                        </div>
+                    </div>
+
+                    <div class="flex items-center justify-between">
+                        <span class="text-xs font-rajdhani text-slate-400"><i class="fa-solid fa-user-group text-cyber-cyan"></i> 22/32 Jugadores Inscritos</span>
+                        <button onclick="openTournamentModal('FC 24 Cup')" class="px-5 py-2.5 rounded-lg font-orbitron text-xs font-bold uppercase text-black bg-cyber-cyan hover:bg-cyan-300 transition-colors">
+                            Inscribirse
+                        </button>
+                    </div>
+                </div>
+
+            </div>
+
+        </div>
+    </section>
+
+    <section id="reserva" class="py-20 relative scanline-bg bg-slate-950/80">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            
+            <div class="text-center max-w-3xl mx-auto mb-16">
+                <h2 class="font-orbitron font-black text-3xl sm:text-5xl text-white tracking-wider mb-4">
+                    RESERVA TU <span class="text-cyber-cyan text-glow-cyan">PUESTO EN LÍNEA</span>
+                </h2>
+                <p class="font-sans text-slate-400 text-base">
+                    Selecciona tu equipo en nuestro mapa interactivo en tiempo real y asegura tu lugar antes de llegar.
+                </p>
+            </div>
+
+            <div class="grid lg:grid-cols-12 gap-8 items-start">
+                
+                <!-- Interactive PC Layout Map -->
+                <div class="lg:col-span-7 glass-panel rounded-2xl p-6 border border-slate-800">
+                    <div class="flex items-center justify-between mb-6 border-b border-slate-800 pb-4">
+                        <h3 class="font-orbitron font-bold text-lg text-white">MAPA DEL SALÓN EN VIVO</h3>
+                        
+                        <div class="flex items-center gap-4 text-xs font-rajdhani font-semibold">
+                            <span class="flex items-center gap-1.5"><span class="w-3 h-3 rounded bg-slate-800 border border-cyber-cyan"></span> Libre</span>
+                            <span class="flex items-center gap-1.5"><span class="w-3 h-3 rounded bg-cyber-cyan"></span> Seleccionado</span>
+                            <span class="flex items-center gap-1.5"><span class="w-3 h-3 rounded bg-red-500/40 border border-red-500"></span> Ocupado</span>
+                        </div>
+                    </div>
+
+                    <!-- Layout Matrix -->
+                    <div class="space-y-6">
+                        <!-- VIP Row -->
+                        <div>
+                            <span class="font-orbitron text-xs font-bold text-cyber-magenta block mb-3">ZONA VIP ULTIMATE (RTX 4090)</span>
+                            <div class="grid grid-cols-4 sm:grid-cols-6 gap-3">
+                                <button type="button" onclick="selectSeat(this, 'VIP-01')" class="seat-btn p-3 rounded-lg glass-panel border border-slate-700 hover:border-cyber-cyan transition-all flex flex-col items-center">
+                                    <i class="fa-solid fa-desktop text-cyber-magenta text-sm mb-1"></i>
+                                    <span class="font-orbitron text-[10px] font-bold">V-01</span>
+                                </button>
+                                <button type="button" onclick="selectSeat(this, 'VIP-02')" class="seat-btn p-3 rounded-lg glass-panel border border-slate-700 hover:border-cyber-cyan transition-all flex flex-col items-center">
+                                    <i class="fa-solid fa-desktop text-cyber-magenta text-sm mb-1"></i>
+                                    <span class="font-orbitron text-[10px] font-bold">V-02</span>
+                                </button>
+                                <button type="button" disabled class="seat-btn cyber-tile-occupied p-3 rounded-lg flex flex-col items-center">
+                                    <i class="fa-solid fa-desktop text-red-400 text-sm mb-1"></i>
+                                    <span class="font-orbitron text-[10px] font-bold">V-03</span>
+                                </button>
+                                <button type="button" onclick="selectSeat(this, 'VIP-04')" class="seat-btn p-3 rounded-lg glass-panel border border-slate-700 hover:border-cyber-cyan transition-all flex flex-col items-center">
+                                    <i class="fa-solid fa-desktop text-cyber-magenta text-sm mb-1"></i>
+                                    <span class="font-orbitron text-[10px] font-bold">V-04</span>
+                                </button>
+                                <button type="button" onclick="selectSeat(this, 'VIP-05')" class="seat-btn p-3 rounded-lg glass-panel border border-slate-700 hover:border-cyber-cyan transition-all flex flex-col items-center">
+                                    <i class="fa-solid fa-desktop text-cyber-magenta text-sm mb-1"></i>
+                                    <span class="font-orbitron text-[10px] font-bold">V-05</span>
+                                </button>
+                                <button type="button" disabled class="seat-btn cyber-tile-occupied p-3 rounded-lg flex flex-col items-center">
+                                    <i class="fa-solid fa-desktop text-red-400 text-sm mb-1"></i>
+                                    <span class="font-orbitron text-[10px] font-bold">V-06</span>
+                                </button>
+                            </div>
+                        </div>
+
+                        <!-- Standard Row -->
+                        <div>
+                            <span class="font-orbitron text-xs font-bold text-cyber-cyan block mb-3">ZONA GAMING ESTÁNDAR (RTX 4070 Ti)</span>
+                            <div class="grid grid-cols-4 sm:grid-cols-6 gap-3">
+                                <button type="button" onclick="selectSeat(this, 'PC-01')" class="seat-btn p-3 rounded-lg glass-panel border border-slate-700 hover:border-cyber-cyan transition-all flex flex-col items-center">
+                                    <i class="fa-solid fa-desktop text-cyber-cyan text-sm mb-1"></i>
+                                    <span class="font-orbitron text-[10px] font-bold">PC-01</span>
+                                </button>
+                                <button type="button" onclick="selectSeat(this, 'PC-02')" class="seat-btn p-3 rounded-lg glass-panel border border-slate-700 hover:border-cyber-cyan transition-all flex flex-col items-center">
+                                    <i class="fa-solid fa-desktop text-cyber-cyan text-sm mb-1"></i>
+                                    <span class="font-orbitron text-[10px] font-bold">PC-02</span>
+                                </button>
+                                <button type="button" onclick="selectSeat(this, 'PC-03')" class="seat-btn p-3 rounded-lg glass-panel border border-slate-700 hover:border-cyber-cyan transition-all flex flex-col items-center">
+                                    <i class="fa-solid fa-desktop text-cyber-cyan text-sm mb-1"></i>
+                                    <span class="font-orbitron text-[10px] font-bold">PC-03</span>
+                                </button>
+                                <button type="button" disabled class="seat-btn cyber-tile-occupied p-3 rounded-lg flex flex-col items-center">
+                                    <i class="fa-solid fa-desktop text-red-400 text-sm mb-1"></i>
+                                    <span class="font-orbitron text-[10px] font-bold">PC-04</span>
+                                </button>
+                                <button type="button" onclick="selectSeat(this, 'PC-05')" class="seat-btn p-3 rounded-lg glass-panel border border-slate-700 hover:border-cyber-cyan transition-all flex flex-col items-center">
+                                    <i class="fa-solid fa-desktop text-cyber-cyan text-sm mb-1"></i>
+                                    <span class="font-orbitron text-[10px] font-bold">PC-05</span>
+                                </button>
+                                <button type="button" onclick="selectSeat(this, 'PC-06')" class="seat-btn p-3 rounded-lg glass-panel border border-slate-700 hover:border-cyber-cyan transition-all flex flex-col items-center">
+                                    <i class="fa-solid fa-desktop text-cyber-cyan text-sm mb-1"></i>
+                                    <span class="font-orbitron text-[10px] font-bold">PC-06</span>
+                                </button>
+                            </div>
+                        </div>
+
+                        <!-- Consoles Area -->
+                        <div>
+                            <span class="font-orbitron text-xs font-bold text-cyber-purple block mb-3">ZONA CONSOLAS & VR</span>
+                            <div class="grid grid-cols-2 sm:grid-cols-4 gap-3">
+                                <button type="button" onclick="selectSeat(this, 'PS5-01')" class="seat-btn p-3 rounded-lg glass-panel border border-slate-700 hover:border-cyber-cyan transition-all flex flex-col items-center">
+                                    <i class="fa-brands fa-playstation text-cyber-purple text-sm mb-1"></i>
+                                    <span class="font-orbitron text-[10px] font-bold">PS5-LOUNGE 1</span>
+                                </button>
+                                <button type="button" onclick="selectSeat(this, 'PS5-02')" class="seat-btn p-3 rounded-lg glass-panel border border-slate-700 hover:border-cyber-cyan transition-all flex flex-col items-center">
+                                    <i class="fa-brands fa-playstation text-cyber-purple text-sm mb-1"></i>
+                                    <span class="font-orbitron text-[10px] font-bold">PS5-LOUNGE 2</span>
+                                </button>
+                                <button type="button" onclick="selectSeat(this, 'VR-01')" class="seat-btn p-3 rounded-lg glass-panel border border-slate-700 hover:border-cyber-cyan transition-all flex flex-col items-center">
+                                    <i class="fa-solid fa-vr-cardboard text-cyber-purple text-sm mb-1"></i>
+                                    <span class="font-orbitron text-[10px] font-bold">VR ARENA 1</span>
+                                </button>
+                                <button type="button" disabled class="seat-btn cyber-tile-occupied p-3 rounded-lg flex flex-col items-center">
+                                    <i class="fa-solid fa-vr-cardboard text-red-400 text-sm mb-1"></i>
+                                    <span class="font-orbitron text-[10px] font-bold">VR ARENA 2</span>
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Reservation Form -->
+                <div class="lg:col-span-5 glass-panel-glow rounded-2xl p-6 border-cyber-cyan/30">
+                    <h3 class="font-orbitron font-bold text-xl text-white mb-6 flex items-center gap-2">
+                        <i class="fa-solid fa-clipboard-list text-cyber-cyan"></i> DETALLES DE RESERVA
+                    </h3>
+
+                    <form id="reservationForm" onsubmit="handleReservation(event)" class="space-y-4">
+                        <div>
+                            <label class="block font-rajdhani font-semibold text-xs text-slate-300 uppercase mb-1">Puesto Seleccionado</label>
+                            <input type="text" id="selectedSeatInput" readonly value="Ninguno (Selecciona en el mapa)" class="w-full bg-slate-900 border border-slate-700 rounded-lg px-4 py-2.5 font-orbitron text-xs text-cyber-cyan focus:outline-none focus:border-cyber-cyan">
+                        </div>
+
+                        <div class="grid grid-cols-2 gap-4">
+                            <div>
+                                <label class="block font-rajdhani font-semibold text-xs text-slate-300 uppercase mb-1">Fecha</label>
+                                <input type="date" required class="w-full bg-slate-900 border border-slate-700 rounded-lg px-3 py-2 text-xs text-white focus:outline-none focus:border-cyber-cyan">
+                            </div>
+                            <div>
+                                <label class="block font-rajdhani font-semibold text-xs text-slate-300 uppercase mb-1">Hora Inicio</label>
+                                <input type="time" required class="w-full bg-slate-900 border border-slate-700 rounded-lg px-3 py-2 text-xs text-white focus:outline-none focus:border-cyber-cyan">
+                            </div>
+                        </div>
+
+                        <div>
+                            <label class="block font-rajdhani font-semibold text-xs text-slate-300 uppercase mb-1">Duración (Horas)</label>
+                            <select id="durationSelect" onchange="calculateTotal()" class="w-full bg-slate-900 border border-slate-700 rounded-lg px-3 py-2 text-xs text-white focus:outline-none focus:border-cyber-cyan">
+                                <option value="1">1 Hora</option>
+                                <option value="2">2 Horas</option>
+                                <option value="3">3 Horas (Descuento 10%)</option>
+                                <option value="5">Bono 5 Horas</option>
+                                <option value="8">Night Pass (23:00 - 07:00)</option>
+                            </select>
+                        </div>
+
+                        <div>
+                            <label class="block font-rajdhani font-semibold text-xs text-slate-300 uppercase mb-1">Nombre Completo</label>
+                            <input type="text" placeholder="Tu Gamertag o Nombre" required class="w-full bg-slate-900 border border-slate-700 rounded-lg px-4 py-2.5 text-xs text-white focus:outline-none focus:border-cyber-cyan">
+                        </div>
+
+                        <div>
+                            <label class="block font-rajdhani font-semibold text-xs text-slate-300 uppercase mb-1">Correo Electrónico</label>
+                            <input type="email" placeholder="gamer@cyberzone.com" required class="w-full bg-slate-900 border border-slate-700 rounded-lg px-4 py-2.5 text-xs text-white focus:outline-none focus:border-cyber-cyan">
+                        </div>
+
+                        <!-- Total Calculator -->
+                        <div class="bg-slate-900/90 p-4 rounded-xl border border-slate-800 flex justify-between items-center my-4">
+                            <span class="font-rajdhani font-bold text-slate-300 uppercase text-sm">TOTAL ESTIMADO:</span>
+                            <span id="totalPrice" class="font-orbitron font-black text-2xl text-cyber-neonGreen">3.00 €</span>
+                        </div>
+
+                        <button type="submit" class="w-full py-3.5 rounded-xl font-orbitron font-bold text-xs uppercase tracking-wider text-black bg-gradient-to-r from-cyber-cyan to-blue-500 hover:from-cyan-300 hover:to-blue-400 transition-all duration-300 shadow-neon-cyan">
+                            Confirmar Reserva
+                        </button>
+                    </form>
+                </div>
+
+            </div>
+
+        </div>
+    </section>
+
+    <footer id="contacto" class="bg-slate-950 pt-16 pb-8 border-t border-slate-800 relative">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            
+            <div class="grid lg:grid-cols-4 md:grid-cols-2 gap-10 mb-12">
+                
+                <!-- Col 1: About -->
+                <div class="space-y-4">
+                    <a href="#" class="flex items-center gap-3">
+                        <div class="w-8 h-8 rounded-lg bg-gradient-to-br from-cyber-cyan to-cyber-magenta p-0.5">
+                            <div class="w-full h-full bg-slate-950 rounded-[6px] flex items-center justify-center">
+                                <i class="fa-solid fa-gamepad text-cyber-cyan text-sm"></i>
+                            </div>
+                        </div>
+                        <span class="font-orbitron font-black text-lg text-white">CYBER<span class="text-cyber-cyan">ZONE</span></span>
+                    </a>
+                    <p class="text-xs text-slate-400 font-sans leading-relaxed">
+                        El cibercafé definitivo para eSports, torneos y café de especialidad. La mejor tecnología combinada con una comunidad de jugadores apasionada.
+                    </p>
+                    <div class="flex space-x-3 pt-2">
+                        <a href="#" class="w-9 h-9 rounded-lg glass-panel border border-slate-800 flex items-center justify-center text-slate-400 hover:text-cyber-cyan hover:border-cyber-cyan transition-colors"><i class="fa-brands fa-discord"></i></a>
+                        <a href="#" class="w-9 h-9 rounded-lg glass-panel border border-slate-800 flex items-center justify-center text-slate-400 hover:text-cyber-magenta hover:border-cyber-magenta transition-colors"><i class="fa-brands fa-twitch"></i></a>
+                        <a href="#" class="w-9 h-9 rounded-lg glass-panel border border-slate-800 flex items-center justify-center text-slate-400 hover:text-cyber-cyan hover:border-cyber-cyan transition-colors"><i class="fa-brands fa-instagram"></i></a>
+                        <a href="#" class="w-9 h-9 rounded-lg glass-panel border border-slate-800 flex items-center justify-center text-slate-400 hover:text-cyber-yellow hover:border-cyber-yellow transition-colors"><i class="fa-brands fa-x-twitter"></i></a>
+                    </div>
+                </div>
+
+                <!-- Col 2: Hours -->
+                <div>
+                    <h4 class="font-orbitron font-bold text-sm text-white mb-4 uppercase tracking-wider text-cyber-cyan">Horario de Apertura</h4>
+                    <ul class="space-y-2 text-xs font-rajdhani text-slate-300 font-semibold">
+                        <li class="flex justify-between border-b border-slate-900 pb-1.5">
+                            <span>Lunes - Jueves:</span>
+                            <span class="text-white">10:00 - 02:00</span>
+                        </li>
+                        <li class="flex justify-between border-b border-slate-900 pb-1.5">
+                            <span>Viernes - Sábado:</span>
+                            <span class="text-cyber-neonGreen">24 Horas Ininterrumpido</span>
+                        </li>
+                        <li class="flex justify-between border-b border-slate-900 pb-1.5">
+                            <span>Domingo:</span>
+                            <span class="text-white">10:00 - 00:00</span>
+                        </li>
+                    </ul>
+                </div>
+
+                <!-- Col 3: Contact & Location -->
+                <div>
+                    <h4 class="font-orbitron font-bold text-sm text-white mb-4 uppercase tracking-wider text-cyber-magenta">Ubicación & Contacto</h4>
+                    <ul class="space-y-3 text-xs text-slate-300 font-sans">
+                        <li class="flex items-start gap-2.5">
+                            <i class="fa-solid fa-location-dot text-cyber-magenta mt-1"></i>
+                            <span>Av. de la Tecnología 42, Granada, España</span>
+                        </li>
+                        <li class="flex items-center gap-2.5">
+                            <i class="fa-solid fa-phone text-cyber-magenta"></i>
+                            <span>+34 958 000 777</span>
+                        </li>
+                        <li class="flex items-center gap-2.5">
+                            <i class="fa-solid fa-envelope text-cyber-magenta"></i>
+                            <span>contacto@cyberzonecafe.com</span>
+                        </li>
+                    </ul>
+                </div>
+
+                <!-- Col 4: Newsletter -->
+                <div>
+                    <h4 class="font-orbitron font-bold text-sm text-white mb-4 uppercase tracking-wider text-cyber-yellow">Newsletter CyberZone</h4>
+                    <p class="text-xs text-slate-400 mb-3">Suscríbete para recibir invitaciones a torneos exclusivos y descuentos.</p>
+                    <form onsubmit="handleNewsletter(event)" class="space-y-2">
+                        <input type="email" placeholder="Tu email gamer" required class="w-full bg-slate-900 border border-slate-800 rounded-lg px-3 py-2 text-xs text-white focus:outline-none focus:border-cyber-yellow">
+                        <button type="submit" class="w-full py-2 rounded-lg font-orbitron text-xs font-bold uppercase text-black bg-cyber-yellow hover:bg-yellow-400 transition-colors">
+                            Suscribirme
+                        </button>
+                    </form>
+                </div>
+
+            </div>
+
+            <!-- Fake Cyberpunk Map Widget -->
+            <div class="mb-12 glass-panel rounded-2xl p-4 border border-slate-800 relative overflow-hidden h-48 flex items-center justify-center">
+                <div class="absolute inset-0 bg-[url('https://images.unsplash.com/photo-1526374965328-7f61d4dc18c5?auto=format&fit=crop&w=1200&q=80')] bg-cover bg-center opacity-30"></div>
+                <div class="relative z-10 text-center glass-panel px-6 py-4 rounded-xl border border-cyber-cyan/40">
+                    <i class="fa-solid fa-map-location-dot text-cyber-cyan text-3xl mb-2"></i>
+                    <p class="font-orbitron font-bold text-sm text-white">UBICACIÓN EN GRANADA</p>
+                    <p class="text-xs text-slate-300 font-sans">A 5 minutos del metro • Zona de párking gratuito</p>
+                </div>
+            </div>
+
+            <!-- Bottom Copyright -->
+            <div class="border-t border-slate-900 pt-6 text-center text-xs text-slate-500 font-rajdhani">
+                <p>© 2026 CyberZone Gaming & Specialty Cafe. Todos los derechos reservados.</p>
+            </div>
+
+        </div>
+    </footer>
+
+    <!-- Custom Modal for Notifications -->
+    <div id="customModal" class="fixed inset-0 bg-black/80 backdrop-blur-sm z-50 hidden flex items-center justify-center p-4">
+        <div class="glass-panel-glow rounded-2xl max-w-md w-full p-6 border-cyber-cyan text-center relative">
+            <div class="w-12 h-12 rounded-full bg-cyber-cyan/20 border border-cyber-cyan flex items-center justify-center text-cyber-cyan mx-auto mb-4 text-xl">
+                <i class="fa-solid fa-check"></i>
+            </div>
+            <h3 id="modalTitle" class="font-orbitron font-bold text-xl text-white mb-2">¡RESERVA CONFIRMADA!</h3>
+            <p id="modalMessage" class="text-xs text-slate-300 mb-6 leading-relaxed">Hemos registrado tu puesto. Te esperamos en CyberZone Gaming & Cafe.</p>
+            <button onclick="closeModal()" class="w-full py-2.5 rounded-lg font-orbitron text-xs font-bold uppercase text-black bg-cyber-cyan hover:bg-cyan-300 transition-colors">
+                Aceptar
+            </button>
+        </div>
+    </div>
+
+    <!-- JavaScript code -->
+    <script>
+        // Mobile Menu Toggle
+        const mobileBtn = document.getElementById('mobile-menu-btn');
+        const mobileMenu = document.getElementById('mobile-menu');
+
+        mobileBtn.addEventListener('click', () => {
+            mobileMenu.classList.toggle('hidden');
+        });
+
+        // Interactive Seat Selection
+        let selectedSeat = null;
+        let seatPricePerHour = 3.00;
+
+        function selectSeat(element, seatCode) {
+            // Remove selection from previous
+            document.querySelectorAll('.seat-btn').forEach(btn => {
+                btn.classList.remove('cyber-tile-selected');
+            });
+
+            // Add selection to clicked
+            element.classList.add('cyber-tile-selected');
+            selectedSeat = seatCode;
+
+            document.getElementById('selectedSeatInput').value = seatCode;
+
+            // Update price base depending on seat type
+            if (seatCode.startsWith('VIP')) {
+                seatPricePerHour = 5.00;
+            } else if (seatCode.startsWith('PS5') || seatCode.startsWith('VR')) {
+                seatPricePerHour = 4.00;
+            } else {
+                seatPricePerHour = 3.00;
+            }
+
+            calculateTotal();
+        }
+
+        function calculateTotal() {
+            const duration = parseInt(document.getElementById('durationSelect').value);
+            let total = 0;
+
+            if (duration === 5) {
+                total = 12.50; // Bono discount
+            } else if (duration === 8) {
+                total = 18.00; // Night pass flat rate
+            } else if (duration === 3) {
+                total = (seatPricePerHour * duration) * 0.9; // 10% discount
+            } else {
+                total = seatPricePerHour * duration;
+            }
+
+            document.getElementById('totalPrice').textContent = total.toFixed(2) + ' €';
+        }
+
+        function handleReservation(e) {
+            e.preventDefault();
+            if (!selectedSeat) {
+                showModal('SELECCIONA UN PUESTO', 'Por favor haz clic sobre un puesto libre en el mapa interactivo antes de confirmar.');
+                return;
+            }
+
+            showModal('¡RESERVA COMPLETADA!', `Tu puesto ${selectedSeat} ha sido reservado con éxito. Te hemos enviado un código QR de acceso a tu correo.`);
+        }
+
+        function openTournamentModal(tournamentName) {
+            showModal('INSCRIPCIÓN A TORNEO', `Te has registrado correctamente para participar en el ${tournamentName}. Revisa tu correo con las instrucciones de check-in.`);
+        }
+
+        function handleNewsletter(e) {
+            e.preventDefault();
+            showModal('¡SUSCRIPCIÓN EXITOSA!', 'Gracias por unirte a la comunidad de CyberZone. Pronto recibirás ofertas exclusivas en tu correo.');
+        }
+
+        function showModal(title, message) {
+            document.getElementById('modalTitle').textContent = title;
+            document.getElementById('modalMessage').textContent = message;
+            document.getElementById('customModal').classList.remove('hidden');
+        }
+
+        function closeModal() {
+            document.getElementById('customModal').classList.add('hidden');
+        }
+
+        // Cafe Menu Filtering Logic
+        const filterBtns = document.querySelectorAll('.menu-filter-btn');
+        const menuItems = document.querySelectorAll('.menu-item');
+
+        filterBtns.forEach(btn => {
+            btn.addEventListener('click', () => {
+                // Remove active classes
+                filterBtns.forEach(b => {
+                    b.classList.remove('border-cyber-magenta', 'text-white', 'bg-cyber-magenta/20', 'shadow-neon-magenta');
+                    b.classList.add('border-slate-800', 'text-slate-400');
+                });
+
+                // Add active classes to clicked
+                btn.classList.add('border-cyber-magenta', 'text-white', 'bg-cyber-magenta/20', 'shadow-neon-magenta');
+                btn.classList.remove('border-slate-800', 'text-slate-400');
+
+                const filter = btn.getAttribute('data-filter');
+
+                menuItems.forEach(item => {
+                    if (filter === 'all' || item.classList.contains(filter)) {
+                        item.style.display = 'block';
+                    } else {
+                        item.style.display = 'none';
+                    }
+                });
+            });
+        });
+    </script>
+</body>
+</html>
